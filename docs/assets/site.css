@@ -56,6 +56,23 @@ table { max-width: 100%; }
 .wsite-search-element, .wsite-social, .blog-comments, .blog-comment-area { display: none !important; }
 .content-notice { width: min(1080px, calc(100% - 40px)); margin: 32px auto 0; padding: 18px 22px; display: grid; gap: 4px; border-left: 4px solid var(--accent); border-radius: 8px; color: var(--muted); background: #fff4e9; }
 .content-notice strong { color: var(--ink); font-family: Georgia, "Noto Serif TC", serif; font-size: 1.2rem; }
+.members-section { width: min(1180px, calc(100% - 40px)); margin: auto; padding: clamp(54px, 8vw, 96px) 0; }
+.members-heading { max-width: 700px; margin-bottom: 34px; }
+.members-heading h1 { margin: 4px 0 8px; font: 700 clamp(2.25rem, 5vw, 4rem)/1.05 Georgia, "Noto Serif TC", serif; }
+.members-heading p { margin: 0; }
+.eyebrow { color: var(--accent) !important; font-size: .78rem; font-weight: 800; letter-spacing: .18em; }
+.member-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 42px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.member-tabs button { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: white; font: 600 .9rem/1 inherit; cursor: pointer; }
+.member-tabs button span { margin-left: 5px; color: #8da0a8; font-size: .76rem; }
+.member-tabs button:hover, .member-tabs button.active { color: white; border-color: var(--brand); background: var(--brand); }
+.member-tabs button.active span { color: #c9e4ed; }
+.member-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 46px 28px; }
+.member-card { min-width: 0; text-align: center; }
+.member-photo { width: 132px; height: 132px; margin: 0 auto 18px; overflow: hidden; border-radius: 50%; background: #e6eef1; box-shadow: 0 8px 26px rgba(22,50,63,.16); }
+.member-photo img { width: 100%; height: 100%; object-fit: cover; }
+.member-photo span { display: grid; width: 100%; height: 100%; place-items: center; color: white; background: linear-gradient(135deg, var(--brand), #4a879c); font: 700 2rem/1 Georgia, serif; }
+.member-card h2 { margin: 0; font: 700 1rem/1.35 Inter, "Noto Sans TC", sans-serif; }
+.member-card p { margin: 5px 0 0; color: var(--muted); font-size: .9rem; }
 
 @media (max-width: 1000px) {
   .menu-toggle { display: block; }
@@ -72,4 +89,8 @@ table { max-width: 100%; }
   .wsite-multicol-table { border-spacing: 0; }
   .wsite-multicol-col { padding: 0 !important; margin-bottom: 24px; }
   .site-footer { display: grid; }
+  .member-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 16px; }
+  .member-photo { width: 108px; height: 108px; }
 }
+
+@media (min-width: 701px) and (max-width: 1000px) { .member-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
