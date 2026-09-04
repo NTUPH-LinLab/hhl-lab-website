@@ -104,13 +104,13 @@ table { max-width: 100%; }
 
 .home-page { background: #f8f6f1; }
 .home-intro, .research-overview, .publication-paths, .burden-section { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
-.home-intro { display: grid; grid-template-columns: 1fr minmax(190px, 260px); align-items: center; gap: clamp(30px, 6vw, 72px); min-height: 310px; padding: 36px 0 22px; }
+.home-intro { display: grid; grid-template-columns: 1fr 190px; align-items: center; gap: clamp(30px, 6vw, 72px); min-height: 310px; padding: 36px 0 22px; }
 .home-intro h1 { max-width: 820px; margin: 8px 0 18px; font: 700 clamp(1.12rem, 2.08vw, 1.66rem)/1.05 Georgia, "Noto Serif TC", serif; letter-spacing: -.02em; }
 .home-intro h1 span { display: block; margin-top: 6px; color: var(--brand); font: 600 clamp(.9rem, 1.65vw, 1.3rem)/1.2 Inter, sans-serif; letter-spacing: .02em; }
 .home-role { margin: 0 0 24px; font-size: 1.08rem; }
 .home-contact { display: flex; flex-wrap: wrap; gap: 6px 20px; max-width: 720px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
-.home-portrait { margin: 0; }
-.home-portrait img { display: block; width: min(100%, 250px); aspect-ratio: 1; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow); }
+.home-portrait { width: 190px; height: 190px; margin: 0; justify-self: end; }
+.home-portrait img { display: block; width: 190px !important; height: 190px !important; max-width: none; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow); }
 .research-overview { padding: clamp(42px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
 .section-heading { max-width: 760px; margin-bottom: 38px; }
 .section-heading h2, .burden-section h2 { position: relative; margin: 6px 0 22px; padding-bottom: 18px; font: 700 clamp(2.2rem, 5vw, 4rem)/1.05 Georgia, "Noto Serif TC", serif; }
@@ -169,8 +169,8 @@ table { max-width: 100%; }
   .dialog-content { padding: 28px 24px; overflow: visible; }
   .home-intro { grid-template-columns: 1fr; min-height: 0; padding: 40px 0 28px; }
   .home-intro h1 { font-size: clamp(1.15rem, 4.8vw, 1.45rem); }
-  .home-portrait { grid-row: 1; width: auto; }
-  .home-portrait img { width: min(52vw, 190px); }
+  .home-portrait { grid-row: 1; width: 150px; height: 150px; justify-self: start; }
+  .home-portrait img { width: 150px !important; height: 150px !important; max-width: 100%; }
   .research-lead, .burden-section { grid-template-columns: 1fr; gap: 22px; }
   .publication-grid { grid-template-columns: 1fr; }
   .research-list li { grid-template-columns: 42px 1fr; gap: 10px; }
