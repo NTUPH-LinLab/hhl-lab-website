@@ -26,7 +26,7 @@ foreach ($page in $pages) {
   $response = Invoke-WebRequest -Uri $uri -UseBasicParsing
   $html = $response.Content -replace '<script[^>]+src="//', '<script src="https://' -replace 'href="//', 'href="https://' -replace 'src="//', 'src="https://'
   $html = [regex]::Replace($html, '<a href="/cdn-cgi/l/email-protection[^>]*data-cfemail="[^"]+"[^>]*>.*?</a>', '<a href="mailto:hsienho@ntu.edu.tw">hsienho@ntu.edu.tw</a>')
-  foreach ($match in [regex]::Matches($html, '(?<u>/(?:uploads|files|cdn-cgi)/[^"''&?#\s\)]+)')) {
+  foreach ($match in [regex]::Matches($html, '(?<u>/uploads/[^"''&?#\s\)]+)')) {
     [void]$assetUrls.Add($match.Groups['u'].Value)
   }
   $depth = ((Split-Path ($target.Substring($Destination.Length).TrimStart('\', '/'))) -split '[\\/]').Count
@@ -46,4 +46,5 @@ foreach ($asset in $assetUrls) {
 }
 
 Set-Content -Path (Join-Path $Destination '.nojekyll') -Value '' -NoNewline
+& (Join-Path $PSScriptRoot 'make-independent.ps1') -SiteRoot $Destination
 Write-Host "Mirrored $($pages.Count) pages and $($assetUrls.Count) local assets into $Destination"
