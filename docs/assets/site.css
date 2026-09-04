@@ -73,6 +73,19 @@ table { max-width: 100%; }
 .member-photo span { display: grid; width: 100%; height: 100%; place-items: center; color: white; background: linear-gradient(135deg, var(--brand), #4a879c); font: 700 2rem/1 Georgia, serif; }
 .member-card h2 { margin: 0; font: 700 1rem/1.35 Inter, "Noto Sans TC", sans-serif; }
 .member-card p { margin: 5px 0 0; color: var(--muted); font-size: .9rem; }
+.member-info { margin-top: 12px; padding: 7px 2px; border: 0; color: var(--brand); background: transparent; font: 700 .76rem/1 inherit; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.member-info span { display: inline-block; margin-left: 4px; transition: transform .2s ease; }
+.member-card:hover .member-info span, .member-info:focus span { transform: translateX(4px); }
+.member-dialog { width: min(900px, calc(100% - 32px)); max-height: min(680px, calc(100vh - 32px)); padding: 0; overflow: hidden; border: 0; border-radius: 18px; color: var(--ink); background: white; box-shadow: 0 28px 90px rgba(0,0,0,.35); }
+.member-dialog[open] { display: grid; grid-template-columns: minmax(260px, 44%) 1fr; }
+.member-dialog::backdrop { background: rgba(12,26,32,.62); backdrop-filter: blur(3px); }
+.dialog-photo { min-height: 480px; background: #e6eef1; }
+.dialog-photo img { width: 100%; height: 100%; object-fit: cover; }
+.dialog-content { padding: clamp(32px, 5vw, 54px); overflow-y: auto; }
+.dialog-content h2 { margin: 0 44px 8px 0; font: 700 clamp(1.35rem, 3vw, 2rem)/1.2 Georgia, "Noto Serif TC", serif; }
+.dialog-meta { margin: 0 0 24px; color: var(--accent); font-weight: 700; }
+.dialog-description p { margin: 0 0 1.15em; white-space: pre-line; }
+.dialog-close { position: absolute; top: 14px; right: 14px; z-index: 2; display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; color: var(--ink); background: rgba(255,255,255,.9); font-size: 26px; cursor: pointer; }
 
 @media (max-width: 1000px) {
   .menu-toggle { display: block; }
@@ -91,6 +104,9 @@ table { max-width: 100%; }
   .site-footer { display: grid; }
   .member-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 16px; }
   .member-photo { width: 108px; height: 108px; }
+  .member-dialog[open] { display: block; overflow-y: auto; }
+  .dialog-photo { min-height: 0; height: min(55vh, 420px); }
+  .dialog-content { padding: 28px 24px; overflow: visible; }
 }
 
 @media (min-width: 701px) and (max-width: 1000px) { .member-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

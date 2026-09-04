@@ -43,6 +43,27 @@ const photoByName = {
 
 const grid = document.querySelector('#member-grid');
 const photoRoot = 'assets/members/';
+const dialog = document.querySelector('#member-dialog');
+const normalizeName = name => name.replace(/\s+/g, ' ').trim();
+let memberDetails = new Map();
+
+function openMember(name, meta) {
+  const detail = memberDetails.get(normalizeName(name));
+  if (!detail || !dialog) return;
+  dialog.querySelector('img').src = `${photoRoot}${photoByName[name]}`;
+  dialog.querySelector('img').alt = name;
+  dialog.querySelector('#member-dialog-title').textContent = name;
+  dialog.querySelector('.dialog-meta').textContent = meta;
+  const description = dialog.querySelector('.dialog-description');
+  const detailLines = detail.split('\n');
+  if (normalizeName(detailLines[0] || '') === normalizeName(name)) detailLines.shift();
+  description.replaceChildren(...detailLines.join('\n').split(/\n\s*\n/).filter(Boolean).map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text.trim();
+    return paragraph;
+  }));
+  dialog.showModal();
+}
 
 function renderMembers(filter = 'all') {
   const visible = members.filter(member => filter === 'all' || member[1] === filter);
@@ -51,7 +72,12 @@ function renderMembers(filter = 'all') {
       <div class="member-photo">${photoByName[name] ? `<img src="${photoRoot}${photoByName[name]}" alt="${name}" loading="lazy">` : `<span>${name.trim().slice(0, 1)}</span>`}</div>
       <h2>${name}</h2>
       <p>${meta || ({research:'Research staff',master:'Master student',doctoral:'Doctoral student',former:'Former member'})[category]}</p>
+      ${memberDetails.has(normalizeName(name)) ? `<button type="button" class="member-info" data-member-name="${name}">See Info <span aria-hidden="true">→</span></button>` : ''}
     </article>`).join('');
+  grid.querySelectorAll('.member-info').forEach(button => button.addEventListener('click', () => {
+    const member = members.find(([name]) => name === button.dataset.memberName);
+    if (member) openMember(member[0], member[2]);
+  }));
 }
 
 document.querySelectorAll('[data-member-filter]').forEach(button => button.addEventListener('click', () => {
@@ -59,4 +85,13 @@ document.querySelectorAll('[data-member-filter]').forEach(button => button.addEv
   renderMembers(button.dataset.memberFilter);
 }));
 
-renderMembers();
+dialog?.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+
+fetch('assets/member-details.json')
+  .then(response => response.json())
+  .then(records => {
+    memberDetails = new Map(records.filter(record => record.detail).map(record => [normalizeName(record.name), record.detail]));
+    renderMembers();
+  })
+  .catch(() => renderMembers());
