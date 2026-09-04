@@ -22,16 +22,33 @@ const members = [
   ['傅涵 Helen Han Fu','former','MSc 2014'],['辜鉅璋 Chu-Chang Ku','former','MSc 2014']
 ];
 
-const photos = Array.from({ length: members.length }, (_, index) => `${String(index + 1).padStart(2, '0')}.jpg`);
+const photoByName = {
+  '曾怡蓁':'01.jpg','馬慶蓉':'02.jpg','Yoseph Leonardo Samodra':'03.jpg','黃映潔':'04.jpg',
+  '翁咏聖 Yong-Sheng Wong':'05.jpg','謝昇諺':'06.jpg','陳奕欣 Yi-Hsin Chen':'07.jpg','邱柏豪 Po-Hao Chiu':'08.jpg',
+  '劉耀臨':'09.jpg','林靜 Jing Lin':'10.jpg','張姿苒 Stephanie Zhang':'11.jpg','王敬中':'12.jpg',
+  '林昊璇 Hao-Hsuan Olivia Lin':'13.jpg','羅苡晅 Yi-Hsuan Lo':'14.jpg','江翊潔 Jessie Chiang':'15.jpg',
+  '顏佳瑩 Chia-Ying Yen':'16.jpg','胡亭宇':'17.jpg','朱柏威 Po-Wei Chu':'18.jpg','伍倢瑩 Jenny Wu':'19.jpg',
+  '趙臨梅 April Meirie Hill':'20.jpg','呂方雯 Fang-Wen Nora Lu':'21.jpg','林子祐 Tzu-You Lin':'22.jpg',
+  '藍之辰 Chih-Chan Jessica Lan':'23.jpg','賴思騰 Winston Lie':'24.jpg','施承妤 Cheng-Yu Shih':'25.jpg',
+  '沈秉杰 Bing-Jie Shen':'26.jpg','黃佳琪 Chia-Chi Huang':'27.jpg','劉柏辰 Ed Liu':'28.jpg',
+  '沈怡伶 Yi-ling Shen':'29.jpg','曾皓楷 Kai Tseng':'30.jpg','楊博傑':'31.jpg','楊芷其 Chih-Chi Yang':'32.jpg',
+  '劉澄杰 Jerry Liu':'33.jpg','廖佑荏 Yotie Liao':'34.jpg','曹宇翔 Ian Tsao':'35.jpg',
+  '陳鳳君 Fengchun Chen':'36.jpg','盧靖宜 Tiffany Lu':'37.jpg','黃佳馨 Luna Huang':'38.jpg',
+  '歐以利 Elias F. Onyoh':'39.jpg','羅偉成 Nicholas Lo':'40.jpg','柯尊皓 Bryant Ko':'41.jpg',
+  '施昀汝 Yun Ju Shih':'42.jpg','王稚慧 Chih-Hui Wang':'43.jpg','Jessica Tsay':'44.jpg',
+  '江宜庭 Yi-Ting Chiang':'45.jpg','陳建州 Joe Chen':'46.jpg','陳姿婷 Tzu-Ting Chen':'47.jpg',
+  '吳昀麇 Lulu':'48.jpg','賴亭君 Lai Ting-chun':'49.jpg','施威利 Willy Shih':'50.jpg',
+  '傅涵 Helen Han Fu':'51.jpg','辜鉅璋 Chu-Chang Ku':'52.jpg'
+};
 
 const grid = document.querySelector('#member-grid');
 const photoRoot = 'assets/members/';
 
 function renderMembers(filter = 'all') {
-  const visible = members.map((member, index) => ({ member, index })).filter(({ member }) => filter === 'all' || member[1] === filter);
-  grid.innerHTML = visible.map(({ member: [name, category, meta], index }) => `
+  const visible = members.filter(member => filter === 'all' || member[1] === filter);
+  grid.innerHTML = visible.map(([name, category, meta]) => `
     <article class="member-card" data-category="${category}">
-      <div class="member-photo">${photos[index] ? `<img src="${photoRoot}${photos[index]}" alt="${name}" loading="lazy">` : `<span>${name.trim().slice(0, 1)}</span>`}</div>
+      <div class="member-photo">${photoByName[name] ? `<img src="${photoRoot}${photoByName[name]}" alt="${name}" loading="lazy">` : `<span>${name.trim().slice(0, 1)}</span>`}</div>
       <h2>${name}</h2>
       <p>${meta || ({research:'Research staff',master:'Master student',doctoral:'Doctoral student',former:'Former member'})[category]}</p>
     </article>`).join('');
