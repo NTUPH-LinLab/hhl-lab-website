@@ -46,6 +46,7 @@ const photoRoot = 'assets/members/';
 const dialog = document.querySelector('#member-dialog');
 const normalizeName = name => name.replace(/\s+/g, ' ').trim();
 let memberDetails = new Map();
+let memberLinks = new Map();
 
 function openMember(name, meta) {
   const detail = memberDetails.get(normalizeName(name));
@@ -62,6 +63,17 @@ function openMember(name, meta) {
     paragraph.textContent = text.trim();
     return paragraph;
   }));
+  const links = dialog.querySelector('.dialog-links');
+  const records = memberLinks.get(normalizeName(name)) || [];
+  links.replaceChildren(...records.map(record => {
+    const anchor = document.createElement('a');
+    anchor.href = record.href;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener noreferrer';
+    anchor.textContent = record.text || 'View thesis';
+    return anchor;
+  }));
+  links.hidden = records.length === 0;
   dialog.showModal();
 }
 
@@ -88,10 +100,15 @@ document.querySelectorAll('[data-member-filter]').forEach(button => button.addEv
 dialog?.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
 dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
 
-fetch('assets/member-details.json')
-  .then(response => response.json())
-  .then(records => {
-    memberDetails = new Map(records.filter(record => record.detail).map(record => [normalizeName(record.name), record.detail]));
-    renderMembers();
-  })
-  .catch(() => renderMembers());
+Promise.allSettled([
+  fetch('assets/member-details.json').then(response => response.json()),
+  fetch('assets/member-links.json').then(response => response.json())
+]).then(([detailsResult, linksResult]) => {
+  if (detailsResult.status === 'fulfilled') {
+    memberDetails = new Map(detailsResult.value.filter(record => record.detail).map(record => [normalizeName(record.name), record.detail]));
+  }
+  if (linksResult.status === 'fulfilled') {
+    memberLinks = new Map(linksResult.value.filter(record => record.links?.length).map(record => [normalizeName(record.name), record.links]));
+  }
+  renderMembers();
+});
