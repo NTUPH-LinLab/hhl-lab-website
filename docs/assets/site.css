@@ -110,7 +110,7 @@ table { max-width: 100%; }
 .home-role { margin: 0 0 24px; font-size: 1.08rem; }
 .home-contact { display: flex; flex-wrap: wrap; gap: 6px 20px; max-width: 720px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
 .home-portrait { margin: 0; }
-.home-portrait img { width: clamp(100px, 12vw, 140px); aspect-ratio: 1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow); }
+.home-portrait img { width: clamp(140px, 12vw, 140px); aspect-ratio: 1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow); }
 .research-overview { padding: clamp(42px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
 .section-heading { max-width: 760px; margin-bottom: 38px; }
 .section-heading h2, .burden-section h2 { position: relative; margin: 6px 0 22px; padding-bottom: 18px; font: 700 clamp(2.2rem, 5vw, 4rem)/1.05 Georgia, "Noto Serif TC", serif; }
