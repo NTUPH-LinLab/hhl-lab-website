@@ -54,6 +54,8 @@ table { max-width: 100%; }
 .site-footer { display: flex; justify-content: space-between; gap: 24px; padding: 36px max(20px, calc((100% - 1080px)/2)); color: #dcecf2; background: #123746; font-size: 14px; }
 .site-footer a { color: white; }
 .wsite-search-element, .wsite-social, .blog-comments, .blog-comment-area { display: none !important; }
+.content-notice { width: min(1080px, calc(100% - 40px)); margin: 32px auto 0; padding: 18px 22px; display: grid; gap: 4px; border-left: 4px solid var(--accent); border-radius: 8px; color: var(--muted); background: #fff4e9; }
+.content-notice strong { color: var(--ink); font-family: Georgia, "Noto Serif TC", serif; font-size: 1.2rem; }
 
 @media (max-width: 1000px) {
   .menu-toggle { display: block; }

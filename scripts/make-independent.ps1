@@ -81,4 +81,20 @@ Get-ChildItem $SiteRoot -Recurse -Filter '*.html' | ForEach-Object {
   [IO.File]::WriteAllText($_.FullName, $html, [Text.UTF8Encoding]::new($false))
 }
 
+# The public Group Members page was only an Elfsight placeholder. Preserve the
+# self-contained member biographies from the site's archived local page instead.
+$membersPath = Join-Path $SiteRoot 'group-members.html'
+$archivedMembersPath = Join-Path $SiteRoot 'group-members_old.html'
+if ((Test-Path $membersPath) -and (Test-Path $archivedMembersPath)) {
+  $membersPage = [IO.File]::ReadAllText((Resolve-Path $membersPath))
+  $archivedPage = [IO.File]::ReadAllText((Resolve-Path $archivedMembersPath))
+  $archivedMain = [regex]::Match($archivedPage, '<main id="content">(?<content>.*?)</main>', 'Singleline,IgnoreCase')
+  if ($archivedMain.Success) {
+    $notice = '<div class="content-notice"><strong>Group Members</strong><span>This page preserves the member profiles published on the previous laboratory website. Please contact the lab for the latest roster.</span></div>'
+    $replacement = '<main id="content">' + $notice + $archivedMain.Groups['content'].Value + '</main>'
+    $membersPage = [regex]::Replace($membersPage, '<main id="content">.*?</main>', [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $replacement }, 'Singleline,IgnoreCase')
+    [IO.File]::WriteAllText((Resolve-Path $membersPath), $membersPage, [Text.UTF8Encoding]::new($false))
+  }
+}
+
 Write-Host "Converted pages to a standalone GitHub Pages site."
