@@ -10,7 +10,6 @@ $nav = @(
   @{ Label = 'Source Code'; File = 'source-code-package-for-download.html' },
   @{ Label = 'News'; File = 'news.html' },
   @{ Label = 'Speeches & Courses'; File = 'speeches-and-courses.html' },
-  @{ Label = 'Posters'; File = 'posters.html' }
 )
 
 $rootPath = (Resolve-Path $SiteRoot).Path
