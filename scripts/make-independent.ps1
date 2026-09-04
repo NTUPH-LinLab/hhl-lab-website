@@ -92,6 +92,7 @@ if ((Test-Path $membersPath) -and (Test-Path $archivedMembersPath)) {
     $memberSection = [IO.File]::ReadAllText((Resolve-Path $memberSectionPath))
     $replacement = '<main id="content">' + $memberSection + '</main>'
     $membersPage = [regex]::Replace($membersPage, '<main id="content">.*?</main>', [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $replacement }, 'Singleline,IgnoreCase')
+    $membersPage = [regex]::Replace($membersPage, '(?:<script src="assets/members.js"></script>)+', '')
     $membersPage = $membersPage -replace '<script src="assets/site.js"></script>', '<script src="assets/site.js"></script><script src="assets/members.js"></script>'
     [IO.File]::WriteAllText((Resolve-Path $membersPath), $membersPage, [Text.UTF8Encoding]::new($false))
   }

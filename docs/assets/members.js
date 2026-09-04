@@ -1,10 +1,10 @@
 const members = [
-  ['曾怡蓁','master',''],['馬慶蓉','master',''],['Yoseph Leonardo Samodra','research','Postdoc 2024'],
+  ['曾怡蓁','master',''],['馬慶蓉','master',''],['Yoseph Leonardo Samodra','former','Postdoc 2024'],
   ['黃映潔','master',''],['翁咏聖 Yong-Sheng Wong','master',''],['謝昇諺','master',''],
   ['劉耀臨','doctoral',''],['林靜 Jing Lin','doctoral',''],['朱柏威 Po-Wei Chu','doctoral',''],
   ['伍倢瑩 Jenny Wu','research','MSc 2015'],['趙臨梅 April Meirie Hill','research','MSc 2023'],['劉柏辰 Ed Liu','research','MSc 2020'],
-  ['陳奕欣 Yi-Hsin Chen','former',''],['邱柏豪 Po-Hao Chiu','former',''],['張姿苒 Stephanie Zhang','former',''],
-  ['王敬中','former',''],['林昊璇 Hao-Hsuan Olivia Lin','former',''],['羅苡晅 Yi-Hsuan Lo','former',''],
+  ['陳奕欣 Yi-Hsin Chen','former',''],['邱柏豪 Po-Hao Chiu','research',''],['張姿苒 Stephanie Zhang','former',''],
+  ['王敬中','research',''],['林昊璇 Hao-Hsuan Olivia Lin','former',''],['羅苡晅 Yi-Hsuan Lo','former',''],
   ['江翊潔 Jessie Chiang','former',''],['顏佳瑩 Chia-Ying Yen','former',''],['胡亭宇','former',''],
   ['呂方雯 Fang-Wen Nora Lu','former','MSc 2022'],['林子祐 Tzu-You Lin','former','MSc 2022'],
   ['藍之辰 Chih-Chan Jessica Lan','former','MSc 2022'],['賴思騰 Winston Lie','former','MSc 2022'],
@@ -22,7 +22,7 @@ const members = [
   ['傅涵 Helen Han Fu','former','MSc 2014'],['辜鉅璋 Chu-Chang Ku','former','MSc 2014']
 ];
 
-const photos = ['01.jpg','02.jpg','03.jpg','','05.jpg','06.jpg','07.jpg','08.jpg','09.jpg','10.jpg','11.jpg','12.jpg'];
+const photos = Array.from({ length: members.length }, (_, index) => `${String(index + 1).padStart(2, '0')}.jpg`);
 
 const grid = document.querySelector('#member-grid');
 const photoRoot = 'assets/members/';
